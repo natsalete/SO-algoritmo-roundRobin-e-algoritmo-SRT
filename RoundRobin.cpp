@@ -18,8 +18,14 @@ int main() {
     int qtdEntradas;
 
     // Solicita a quantidade de processos a serem inseridos
-    cout << "Quantos processos quer inserir?" << endl;
-    cin >> qtdEntradas;
+    do{
+        cout << "Quantos processos quer inserir?" << endl;
+        cin >> qtdEntradas;
+        if(qtdEntradas > 15){
+            cout << endl << "Vc pode inserir no maximo 15 processos!!" << endl << endl;
+        }
+    }while(qtdEntradas > 15);
+
 
     v.resize(qtdEntradas);
 
@@ -100,10 +106,15 @@ int main() {
         cout << vSaida[i].first << " | ";
     }
 
-    cout << endl << "------------------------------------------------------------------------------------------------" << endl;
+    cout << endl << "----------------------------------------------------------------------------------------------------------" << endl;
 
     for (int i = 0; i < vSaida.size(); i++) {
-        cout << vSaida[i].second << " | ";
+        if(i > 9){
+           cout << vSaida[i].second << "  | ";
+        }else {
+            cout << vSaida[i].second << " | ";
+        }
+
     }
 
     return 0;
