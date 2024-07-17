@@ -90,6 +90,7 @@ int main() {
             }
             fila.pop(); // Remove o processo da frente da fila
         } else {
+            vSaida.push_back({tempo, '0'});
             tempo++; // Incrementa o tempo se a fila estiver vazia
         }
 
@@ -106,7 +107,13 @@ int main() {
         cout << vSaida[i].first << " | ";
     }
 
-    cout << endl << "----------------------------------------------------------------------------------------------------------" << endl;
+    cout << endl;
+
+    for (int i = 0; i < vSaida.size(); i++) {
+        cout << "-----";
+    }
+
+    cout << endl;
 
     for (int i = 0; i < vSaida.size(); i++) {
         if(i > 9){
