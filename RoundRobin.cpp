@@ -90,7 +90,7 @@ int main() {
             }
             fila.pop(); // Remove o processo da frente da fila
         } else {
-            vSaida.push_back({tempo, '0'});
+            vSaida.push_back({tempo, '*'});
             tempo++; // Incrementa o tempo se a fila estiver vazia
         }
 
