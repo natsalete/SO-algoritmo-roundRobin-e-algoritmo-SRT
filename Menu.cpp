@@ -18,7 +18,7 @@ int main() {
 
     do {
         cout << "-------- Menu ---------\n";
-        cout << "Escolha uma opção:\n";
+        cout << "Escolha uma opção\n";
         cout << "1. Algoritmo SRT\n";
         cout << "2. Algoritmo Round-Robin\n";
         cout << "3. Sair\n";
