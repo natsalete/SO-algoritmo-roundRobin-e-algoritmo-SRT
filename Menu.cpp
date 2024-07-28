@@ -35,7 +35,7 @@ int main() {
                 cout << "Você saiu do programa\n";
                 break;
             default:
-                cout << "Opcao invalida!\n";
+                cout << "Opção invalida!\n";
                 break;
         }
     } while (opcao != 3);
