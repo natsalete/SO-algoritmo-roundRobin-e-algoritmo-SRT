@@ -3,14 +3,14 @@
 using namespace std;
 void SRT() {
 
-    cout << "Algoritmo SRT\n";
-    // Lógica SRT
+    cout << " ---------- Algoritmo SRT ---------\n";
+    // LÃ³gica SRT
 }
 
 void RoundRobin() {
 
-    cout << "Algoritmo Round-Robin\n";
-    // Lógica Round-Robin
+    cout << " --------- Algoritmo Round-Robin ----------\n";
+    // LÃ³gica Round-Robin
 }
 int main() {
     setlocale(LC_ALL, "Portuguese_Brazil.1252");
@@ -18,7 +18,7 @@ int main() {
 
     do {
         cout << "-------- Menu ---------\n";
-        cout << "Escolha uma opção:\n";
+        cout << "Escolha uma opÃ§Ã£o:\n";
         cout << "1. Algoritmo SRT\n";
         cout << "2. Algoritmo Round-Robin\n";
         cout << "3. Sair\n";
@@ -32,7 +32,7 @@ int main() {
                 RoundRobin();
                 break;
             case 3:
-                cout << "Você saiu do programa\n";
+                cout << "VocÃª saiu do programa\n";
                 break;
             default:
                 cout << "Opcao invalida!\n";
