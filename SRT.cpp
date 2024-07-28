@@ -1,74 +1,107 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <queue>
 
 using namespace std;
 
-struct Process {
-    int id;
-    int arrival_time;
-    int burst_time;
-    int remaining_time;
-
-    Process(int id, int arrival_time, int burst_time)
-        : id(id), arrival_time(arrival_time), burst_time(burst_time), remaining_time(burst_time) {}
-
-    bool operator<(const Process& other) const {
-        return arrival_time < other.arrival_time;
-    }
-};
-
-void srt(vector<Process>& processes) {
-    int n = processes.size();
-    int current_time = 0;
-    int completed = 0;
-    vector<int> completion_time(n);
-    vector<int> waiting_time(n);
-
-    while (completed < n) {
-        int shortest = -1;
-        int shortest_time = INT_MAX;
-
-        for (int i = 0; i < n; ++i) {
-            if (processes[i].arrival_time <= current_time && processes[i].remaining_time < shortest_time && processes[i].remaining_time > 0) {
-                shortest = i;
-                shortest_time = processes[i].remaining_time;
-            }
-        }
-
-        if (shortest == -1) {
-            current_time++;
-            continue;
-        }
-
-        processes[shortest].remaining_time--;
-        current_time++;
-
-        if (processes[shortest].remaining_time == 0) {
-            completed++;
-            int finish_time = current_time;
-            completion_time[shortest] = finish_time;
-            waiting_time[shortest] = finish_time - processes[shortest].burst_time - processes[shortest].arrival_time;
-        }
-    }
-
-    cout << "Process ID\tArrival Time\tBurst Time\tCompletion Time\tWaiting Time\n";
-    for (int i = 0; i < n; ++i) {
-        cout << processes[i].id << "\t\t" << processes[i].arrival_time << "\t\t" << processes[i].burst_time << "\t\t" << completion_time[i] << "\t\t\t" << waiting_time[i] << endl;
-    }
+// Função de comparação para ordenar os processos pelo tempo de chegada
+bool ordena(pair<char, pair<int, int>> a, pair<char, pair<int, int>> b) {
+    return a.second.second < b.second.second;
 }
 
 int main() {
-    vector<Process> processes = {
-        {1, 0, 6},
-        {2, 2, 4},
-        {3, 4, 2},
-        {4, 6, 5}
-    };
+    cout << "Algoritmo Shortest Remaining Time (SRT)!" << endl << endl;
 
-    sort(processes.begin(), processes.end());
+    vector<pair<char, pair<int, int>>> v; // Vetor de processos (nome, (tempo de processamento, tempo de chegada))
+    int qtdEntradas;
 
-    srt(processes);
+    // Solicita a quantidade de processos a serem inseridos
+    do{
+        cout << "Quantos processos quer inserir?" << endl;
+        cin >> qtdEntradas;
+        if(qtdEntradas > 15){
+            cout << endl << "Vc pode inserir no maximo 15 processos!!" << endl << endl;
+        }
+    }while(qtdEntradas > 15);
+
+    v.resize(qtdEntradas);
+
+    // Lê os dados dos processos
+    for (int i = 0; i < qtdEntradas; i++) {
+        cout << endl << "Insira o ID do processo, tempo de chegada e tempo de execução:" << endl;
+        cin >> v[i].first >> v[i].second.first >> v[i].second.second;
+    }
+
+    // Ordena os processos pelo tempo de chegada
+    sort(v.begin(), v.end(), ordena);
+
+    // Fila de prioridade para processos (tempo de processamento restante, tempo de chegada, nome do processo)
+    priority_queue<pair<int, pair<int, char>>, vector<pair<int, pair<int, char>>>, greater<pair<int, pair<int, char>>>> pq;
+    vector<pair<int, char>> vSaida; // Vetor para armazenar a sequência de execução dos processos (tempo, nome)
+    int tempo = 0; // Tempo atual
+    bool ok = true; // Flag de controle do loop principal
+
+    while (ok) {
+        // Adiciona processos à fila de prioridade conforme o tempo de chegada
+        for (int i = 0; i < v.size();) {
+            if (v[i].second.second <= tempo) {
+                pq.push({v[i].second.first, {v[i].second.second, v[i].first}});
+                v.erase(v.begin() + i);
+            } else {
+                i++;
+            }
+        }
+
+        if (!pq.empty()) {
+            auto processoAtual = pq.top();
+            pq.pop();
+
+            // Executa o processo com o menor tempo restante por um tique de relógio
+            vSaida.push_back({tempo, processoAtual.second.second}); // Armazena o tempo atual e o nome do processo
+            tempo++;
+
+            // Reduz o tempo restante do processo em 1
+            processoAtual.first--;
+
+            // Se o processo ainda não terminou, coloca-o de volta na fila de prioridade
+            if (processoAtual.first > 0) {
+                pq.push(processoAtual);
+            }
+        } else {
+            // Se não há processos prontos, incrementa o tempo sem executar nada
+            vSaida.push_back({tempo, '*'});
+            tempo++;
+        }
+
+        // Verifica se a fila e o vetor de processos estão vazios para encerrar o loop
+        if (pq.empty() && v.empty()) {
+            ok = false;
+        }
+    }
+
+    // Exibe a simulação de uso da CPU para cada tique de relógio
+    cout << endl << "Simulação de uso da CPU para cada tique de relógio." << endl << endl;
+
+    for (int i = 0; i < vSaida.size(); i++) {
+        cout << vSaida[i].first << " | ";
+    }
+
+    cout << endl;
+
+    for (int i = 0; i < vSaida.size(); i++) {
+        cout << "-----";
+    }
+
+    cout << endl;
+
+    for (int i = 0; i < vSaida.size(); i++) {
+        if (i > 9) {
+            cout << vSaida[i].second << "  | ";
+        } else {
+            cout << vSaida[i].second << " | ";
+        }
+    }
 
     return 0;
 }
