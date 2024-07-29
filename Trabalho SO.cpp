@@ -24,13 +24,13 @@ void SRT() {
         if (qtdEntradasSRT > 15) {
             cout << endl << "Você pode inserir no máximo 15 processos!!" << endl << endl;
         }
-    } while (qtdEntradasSRT > 15);
+    } while (qtdEntradasSRT > 15 || qtdEntradasSRT <= 0);
 
     processosSRT.resize(qtdEntradasSRT);
 
     // Lê os dados dos processos
     for (int i = 0; i < qtdEntradasSRT; i++) {
-        cout << endl << "Insira o ID do processo, tempo de chegada e tempo de execução:" << endl;
+        cout << endl << "Insira o ID do processo(caracter), tempo de processamento e tempo de chegada:" << endl;
         cin >> processosSRT[i].first >> processosSRT[i].second.first >> processosSRT[i].second.second;
     }
 
@@ -120,13 +120,13 @@ void RoundRobin() {
         if (qtdEntradasRR > 15) {
             cout << endl << "Você pode inserir no máximo 15 processos!!" << endl << endl;
         }
-    } while (qtdEntradasRR > 15);
+    } while (qtdEntradasRR > 15 || qtdEntradasRR <= 0);
 
     processosRR.resize(qtdEntradasRR);
 
     // Lê os dados dos processos
     for (int i = 0; i < qtdEntradasRR; i++) {
-        cout << endl << "Insira o ID do processo, tempo de chegada e tempo de execução:" << endl;
+        cout << endl << "Insira o ID do processo(caracter), tempo de processamento e tempo de chegada:" << endl;
         cin >> processosRR[i].first >> processosRR[i].second.first >> processosRR[i].second.second;
     }
 
@@ -180,7 +180,7 @@ void RoundRobin() {
             }
             filaRR.pop(); // Remove o processo da frente da fila
         } else {
-            saidaRR.push_back({tempoRR, '*'}); // Armazena o tempo atual e o símbolo ''
+            saidaRR.push_back({tempoRR, '*'}); // Armazena o tempo atual e o símbolo '*'
             tempoRR++; // Incrementa o tempo se a fila estiver vazia
         }
 
@@ -220,8 +220,8 @@ int main() {
     int opcao;
 
     do {
-        cout << "-------- TRABALHO SISTEMA OPERACIONAL ---------\n";
-        cout << "Escolha uma opção\n";
+        cout << "-------- Menu ---------\n";
+        cout << "Escolha uma opção:\n";
         cout << "1. Algoritmo SRT\n";
         cout << "2. Algoritmo Round-Robin\n";
         cout << "3. Sair\n";
