@@ -24,14 +24,14 @@ int main() {
         if(qtdEntradas > 15){
             cout << endl << "Vc pode inserir no maximo 15 processos!!" << endl << endl;
         }
-    }while(qtdEntradas > 15);
+    }while(qtdEntradas > 15 || qtdEntradas <= 0);
 
 
     v.resize(qtdEntradas);
 
     // Lê os dados dos processos
     for (int i = 0; i < qtdEntradas; i++) {
-        cout << endl << "Insira o ID do processo, tempo de chegada e tempo de execucao:" << endl;
+        cout << endl << "Insira o ID do processo(caracter), tempo de processamento e tempo de chegada:" << endl;
         cin >> v[i].first >> v[i].second.first >> v[i].second.second;
     }
 
