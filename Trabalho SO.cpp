@@ -26,7 +26,7 @@ void SRT() {
         }
     } while (qtdEntradasSRT > 15 || qtdEntradasSRT <= 0);
 
-    processosSRT.resize(qtdEntradasSRT);
+    processosSRT.resize(qtdEntradasSRT); //Ajusta o tamanho do vector
 
     // Lê os dados dos processos
     for (int i = 0; i < qtdEntradasSRT; i++) {
@@ -122,7 +122,7 @@ void RoundRobin() {
         }
     } while (qtdEntradasRR > 15 || qtdEntradasRR <= 0);
 
-    processosRR.resize(qtdEntradasRR);
+    processosRR.resize(qtdEntradasRR);//Ajusta o tamanho do vector
 
     // Lê os dados dos processos
     for (int i = 0; i < qtdEntradasRR; i++) {
@@ -132,6 +132,7 @@ void RoundRobin() {
 
     // Ordena os processos pelo tempo de chegada
     sort(processosRR.begin(), processosRR.end(), ordena);
+
 
     // Solicita o valor do quantum
     cout << endl << "Qual será o valor do quantum?" << endl;

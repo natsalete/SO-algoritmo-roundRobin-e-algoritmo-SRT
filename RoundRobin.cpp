@@ -60,7 +60,7 @@ int main() {
                 fila.push({v[i].second.first, v[i].first});
                 v.erase(v.begin() + i);
             } else {
-                i++;
+                i++; 
             }
         }
 
